@@ -5,8 +5,8 @@
 }
 .banner {
     display: flex;
-    width: 36vw;
-    height: 336px;
+    width: 32vw;
+    height: 42vh;
     border-radius: 48px;
     background-color: #F7F7F7;
     border: 1px solid #FFFFFF;
@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: space-between;
     width: 54vw;
-    height: 256px;
+    height: 32vh;
     border-radius: 25px;
     background-color: #F7F7F7;
     position: relative;
@@ -35,8 +35,8 @@
 
 .posterContainer {
     display: flex;
-    width: 256px;
-    height: 256px;
+    width: 16vw;
+    height: 32vh;
     background: #F8F8F8;
     border-radius: 40px;
     align-items: center;
@@ -45,8 +45,8 @@
 }
 .poster {
     display: flex;
-    width: 232px;
-    height: 232px;
+    width: 14vw;
+    height: 29vh;
     border-radius: 30px;
     box-shadow: -8px -8px 24px 0 #fff, 8px 8px 24px 0 rgba(174,174,192,0.6);
 }

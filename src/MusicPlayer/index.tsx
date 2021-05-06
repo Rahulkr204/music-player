@@ -5,18 +5,30 @@ import { MdPlaylistAdd } from "react-icons/md";
 import { IoIosShuffle, IoIosRepeat } from "react-icons/io";
 import { RiRepeatOneFill } from "react-icons/ri";
 import { GoSettings } from "react-icons/go";
-import {LeftChevron, RightChevron, PauseSvg} from './assets'
+import {LeftChevron, RightChevron, PauseSvg, PlaySvg} from './assets'
 import Seekbar from './Seekbar'
 
+interface ControlParams {
+    [key: string]: string | boolean
+}
 export default class MusicPlayer extends Component {
-    state = {}
+    state = {
+        title: "Purple Haze",
+        singer_name: "Jimi Hendrix",
+        isLiked: false,
+        play: false
+    }
+
+    updateControls = (params: ControlParams) => {
+        Object.keys(params).map((i: any) => {
+            this.setState({
+                [i] : params[i]
+            })
+        })
+    }
 
     render() {
-        const {title, singer_name, isLiked} = {
-            title: "Purple Haze",
-            singer_name: "Jimi Hendrix",
-            isLiked: true
-        }
+        const {title, singer_name, isLiked, play} = this.state
         return (
             <div className="musicPlayerContainer">
                 <div className="banner">
@@ -37,7 +49,7 @@ export default class MusicPlayer extends Component {
                             </div>
                         </div>
                         <div className="songAction">
-                            <div className="inner-btn">
+                            <div className="inner-btn" onClick={() => this.updateControls({isLiked: !isLiked})}>
                                 <FaHeart 
                                     size={16} 
                                     fill={isLiked ? "#968EF1" : '#C7C5D0' }
@@ -68,10 +80,16 @@ export default class MusicPlayer extends Component {
                                     <LeftChevron width={12} height={22}/>
                                 </div>
                             </div>
-                            <div className="playPauseBtnContainer neu-btn">
-                                <div className="playPauseBtn neu-btn-child">
-                                    <PauseSvg width={20} height={25}/>
-                                </div>
+                            <div className="playPauseBtnContainer neu-btn" onClick={() => this.updateControls({play: !play})}>
+                                {
+                                    play ?
+                                    <div className="playPauseBtn neu-btn-child">
+                                        <PauseSvg width={20} height={25}/>
+                                    </div> :
+                                    <div className="playPauseBtn neu-btn-child">
+                                        <PlaySvg width={20} height={25}/>
+                                    </div>
+                                }
                             </div>
                             <div className="nextBtnContainer neu-btn">
                                 <div className="nextBtn neu-btn-child">
