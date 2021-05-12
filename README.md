@@ -1,5 +1,5 @@
-# Music Player
-
+# Music Player UI
+![screenshot](screenshot.png)
 ## Available Scripts
 
 In the project directory, you can run:
