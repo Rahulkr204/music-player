@@ -15,6 +15,50 @@
     z-index: 10;
     padding: 38px;
 }
+@media only screen and (max-width: 800px) {
+    .controls {
+        position: fixed !important;
+        bottom: 0;
+        width: 100% !important;
+        left: 0 !important;
+        border-radius: 0px !important;
+        padding: 16px 32px !important;
+    }
+    .musicPlayerContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .banner {
+        width: 48vw;
+        height: 64vh;
+        border-radius: 48px;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8px;
+        .posterContainer {
+            width: 32vw;
+            height: 32vh;
+            padding: 8px 0;
+        } 
+        .poster {
+            width: 28vw;
+            height: 28vh;
+        }
+        .albumDetails {
+            margin-bottom: 16px;
+        }
+    }
+    .songControls {
+        width: 92% !important;
+    }
+    .songDetails {
+        width: 75%;
+    }
+    
+}
 .controls {
     display: flex;
     flex-direction: column;
@@ -30,7 +74,7 @@
     box-sizing: border-box;
     box-shadow: 0px 60px 100px rgba(65, 44, 100, 0.3);
     border-radius: 60px;
-    padding: 40px 32px 56px 88px;
+    padding: 40px 32px 32px 88px;
 }
 
 .posterContainer {
@@ -98,8 +142,14 @@
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    background: #F8F8F8;
-    box-shadow: -10px -10px 15px #FFFFFF, 10px 10px 10px rgba(0, 0, 0, 0.05), inset 10px 10px 10px rgba(0, 0, 0, 0.05), inset -10px -10px 20px #FFFFFF;
+    // background: #F8F8F8;
+    // box-shadow: -10px -10px 15px #FFFFFF, 10px 10px 10px rgba(0, 0, 0, 0.05), inset 10px 10px 10px rgba(0, 0, 0, 0.05), inset -10px -10px 20px #FFFFFF;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.12), #ffffff);
+    box-shadow: -2px 3px 16px 0 rgba(0 ,0 ,0 , 0.1), -1px -1px 12px 0 #ffffff;
+    &:hover {
+        background-color: #e6e7ee;
+        box-shadow: inset 2px 2px 5px #d6d6da, inset -3px -3px 7px #fff;
+    }
 }
 
 .songControls {

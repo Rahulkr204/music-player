@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import './MusicPlayer.scss'
 import {FaHeart, FaShareAlt} from "react-icons/fa"
+import toast, { Toaster } from 'react-hot-toast';
 import { MdPlaylistAdd } from "react-icons/md";
 import { IoIosShuffle, IoIosRepeat } from "react-icons/io";
 import { RiRepeatOneFill } from "react-icons/ri";
 import { GoSettings } from "react-icons/go";
 import {LeftChevron, RightChevron, PauseSvg, PlaySvg} from './assets'
 import Seekbar from './Seekbar'
-
 interface ControlParams {
     [key: string]: string | boolean
 }
@@ -19,12 +19,38 @@ export default class MusicPlayer extends Component {
         play: false
     }
 
+    audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+
     updateControls = (params: ControlParams) => {
         Object.keys(params).map((i: any) => {
             this.setState({
                 [i] : params[i]
             })
         })
+    }
+
+    togglePlay = () => {
+        this.setState({
+            play: !this.state.play
+        }, () => {
+            if (this.state.play) {
+                this.audio.play()
+            } else {
+                this.audio.pause()
+            }
+        })
+    }
+
+    copyToClipboard = () => {
+        navigator.clipboard.writeText(`${window.document.location.href}`)
+        toast.success('Copied to clipboard!', { duration: 2500, icon: '📋'})
+    }
+
+    addToPlaylist = () => {
+        this.setState({
+            playlist: []
+        })
+        toast.success('Added to playlist!', { duration: 2500})
     }
 
     render() {
@@ -55,10 +81,10 @@ export default class MusicPlayer extends Component {
                                     fill={isLiked ? "#968EF1" : '#C7C5D0' }
                                 />
                             </div>
-                            <div className="inner-btn">
+                            <div className="inner-btn" onClick={() => this.addToPlaylist()}>
                                 <MdPlaylistAdd size={20}/>
                             </div>
-                            <div className="inner-btn">
+                            <div className="inner-btn" onClick={() => this.copyToClipboard()}>
                                 <FaShareAlt size={16}/>
                             </div>
                         </div>
@@ -80,7 +106,7 @@ export default class MusicPlayer extends Component {
                                     <LeftChevron width={12} height={22}/>
                                 </div>
                             </div>
-                            <div className="playPauseBtnContainer neu-btn" onClick={() => this.updateControls({play: !play})}>
+                            <div className="playPauseBtnContainer neu-btn" onClick={() => this.togglePlay()}>
                                 {
                                     play ?
                                     <div className="playPauseBtn neu-btn-child">
@@ -111,6 +137,7 @@ export default class MusicPlayer extends Component {
                         <Seekbar/>
                     </div>
                 </div>
+                <Toaster/>
             </div>
         )
     }
