@@ -135,11 +135,11 @@ export default class LeftPanel extends Component<Props, State> {
                 </div>
 
                 <div className="footer">
-                    <Button
+                    {/* <Button
                         onClick={this.schedule}
                     >
                         Copy Data
-                    </Button>
+                    </Button> */}
                     <Button
                         onClick={this.schedule}
                     >

@@ -7,8 +7,7 @@
 }
 .seekbarInput {
     display: flex;
-    width: 100%;
-    align-items: center;
+    flex-basis: 95%;
     justify-content: center;
     .rc-slider {
         width: 90%;
@@ -32,10 +31,22 @@
     display: flex;
     height: 48px;
     width: 48px;
+    flex-basis: 5%;
     font-size: 16px;
     color: #fff;
     background-color: #b6b6b6;
     border-radius: 4px;
     align-items: center;
     justify-content: center;
+}
+.seekbarTime {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 6%;
+    margin-top: 8px;
+    color: #FFF;
+    font-size: 14px;
+    
 }

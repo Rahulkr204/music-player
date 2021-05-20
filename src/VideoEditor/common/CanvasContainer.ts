@@ -14,7 +14,7 @@ export default class CanvasContainer {
     imageArr: string[]
     fps: number = 10
     videoPlayInterval: any
-    videoTime: number 
+    videoTime: any 
     isVideoPlaying: boolean = false
     seekbarPosition: number
     frames: Frames[]
@@ -24,7 +24,7 @@ export default class CanvasContainer {
 
     constructor(imageArr: any) {
         this.imageArr = imageArr
-        this.videoTime = this.imageArr.length / this.fps * 1000
+        this.videoTime = this.imageArr.length / this.fps
         this.initFrameURL = imageArr[0]
         this.canvasWorkspace = new CanvasWorkspace(imageArr[0])
         this.seekbarPosition = 0

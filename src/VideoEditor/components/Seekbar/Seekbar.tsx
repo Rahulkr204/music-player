@@ -3,6 +3,7 @@ import CanvasContainer from '../../common/CanvasContainer'
 import './Seekbar.scss'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { FaPlay, FaPause } from "react-icons/fa";
 
 interface Props {
     imageDetails: any
@@ -11,13 +12,20 @@ interface Props {
 
 interface State {
     seekbarVal: number
+    isPlaying: boolean
 }
 
 export default class Seekbar extends Component<Props, State> {
     state = {
-        seekbarVal: 0
+        seekbarVal: 0,
+        isPlaying: false
     }
     
+    togglePlay = () => {
+        this.setState({
+            isPlaying: !this.state.isPlaying
+        })
+    }
 
     updateSeekbar = (val: number) => {
         const canvasContainer = this.props.canvasContainer
@@ -32,6 +40,7 @@ export default class Seekbar extends Component<Props, State> {
         } else {
             canvasContainer?.playVideo(this.updateSeek)
         }
+        this.togglePlay()
     }
 
     updateSeek = (pos) => {
@@ -55,12 +64,12 @@ export default class Seekbar extends Component<Props, State> {
     }
 
     render() {
-        const seekbarPosition = this.props.canvasContainer?.getSeekbarPosition()
+        const canvasContainer = this.props.canvasContainer
         return (
             <div className="seekbarContainer">
                 <div className="videoSeekbar">
                     <div className="playBtn" onClick={() => this.toggleVideo()}>
-                        Play
+                        {this.state.isPlaying ? <FaPause fill={"#FFF"} size={24}/> : <FaPlay fill={"#FFF"} size={24}/>}
                     </div>
                     <div className="seekbarInput">
                         <Slider 
@@ -80,7 +89,21 @@ export default class Seekbar extends Component<Props, State> {
                         />
                     </div>
                 </div>
+                <div className="seekbarTime">
+                    <div className="startTime">{displayTime(this.state.seekbarVal / canvasContainer?.fps)}</div>
+                    <div className="endTime">{displayTime(canvasContainer?.videoTime)}</div>
+                </div>
             </div>
         )
     }
+}
+
+
+
+function displayTime (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = seconds / 3600
+    const minutes = (seconds % 3600) / 60
+  
+    return [hours, minutes, seconds % 60].map(format).join(':')
 }
