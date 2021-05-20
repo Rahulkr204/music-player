@@ -1,0 +1,41 @@
+.seekbarContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    padding: 8px;
+}
+.seekbarInput {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    .rc-slider {
+        width: 90%;
+        margin: 16px 0;
+    }
+    .rc-slider-rail {
+        height: 12px;
+        // box-shadow: -3px -3px 5px #fff, 3px 3px 5px rgba(0, 0, 0, 0.05), inset 3px 3px 5px rgba(0,0,0,0.05), inset -3px -3px 5px #fff;
+    }
+    .rc-slider-track {
+        height: 6px;
+        top: 8px;
+    }
+}
+.videoSeekbar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.playBtn {
+    display: flex;
+    height: 48px;
+    width: 48px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #b6b6b6;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+}

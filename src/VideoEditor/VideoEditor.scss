@@ -1,0 +1,43 @@
+.videoEditorContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+#mainpanel {
+    background: #000;
+    border-radius: 4px;
+    border: 1px solid #d8d8d8;
+    margin: 0 auto;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+}
+.leftPanel {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 360px;
+    background-color: #e7e7e7;
+    flex-shrink: 0;
+}
+.rightPanel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #333;
+}
+
+.videoPlayer {
+    display: flex;
+    height: 75%;
+    background-color: #000;
+    padding: 12px;
+    border-bottom: 4px solid #eee;
+}
+.seekbar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 8px 0;
+}
