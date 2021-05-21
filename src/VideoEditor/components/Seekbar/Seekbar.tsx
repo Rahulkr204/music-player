@@ -50,17 +50,10 @@ export default class Seekbar extends Component<Props, State> {
         })
     }
 
-    onBeforeChange = () => {
-        const canvasContainer = this.props.canvasContainer
-        if (canvasContainer?.isVideoPlaying) {
-            canvasContainer?.pauseVideo()
-        }
-    }
-
-    onAfterChange = () => {
+    onDragChange = () => {
         const canvasContainer = this.props.canvasContainer
         if (!canvasContainer?.isVideoPlaying) {
-            canvasContainer?.playVideo(this.updateSeek)
+            canvasContainer?.pauseVideo()
         }
     }
 
@@ -86,8 +79,8 @@ export default class Seekbar extends Component<Props, State> {
                                 top: '-2px'
                             }}
                             value={this.state.seekbarVal}
-                            onBeforeChange={this.onBeforeChange}
-                            onAfterChange={this.onAfterChange}
+                            onBeforeChange={this.onDragChange}
+                            onAfterChange={this.onDragChange}
                         />
                     </div>
                 </div>

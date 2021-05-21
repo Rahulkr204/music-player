@@ -5,6 +5,7 @@ import Konva from 'konva';
 interface Frames {
     id: string
     image: any
+    frame_id: number
     elements: any
 }
 
@@ -60,7 +61,7 @@ export default class CanvasContainer {
 
         this.videoPlayInterval = setInterval(() => {
             var imageObj = new Image();
-            imageObj.src = this.imageArr[count];
+            imageObj.src = this.frames[count].image;
             imageObj.onload = () => {
                 this.canvasWorkspace.img?.image(imageObj)
                 this.canvasWorkspace.layer.draw()
@@ -69,6 +70,12 @@ export default class CanvasContainer {
             count += 1
             this.seekbarPosition += 1
             cb(this.seekbarPosition)
+            if (count === this.frames.length) {
+                clearInterval(this.videoPlayInterval)
+                this.updateSeekbarPosition(0)
+                this.canvasWorkspace.layer.clear()
+                this.canvasWorkspace.layer.draw()
+            }
         }, this.fps)
         this.isVideoPlaying = true
         
@@ -134,30 +141,95 @@ export default class CanvasContainer {
         }
     }
 
-    shuffleFrames = () => {
-        const frames = Object.assign([], this.frames)
-        const result = []
-        let tempBatch = []
-        let start = 0
-        frames.forEach(frame => {
-            if (frame.frame_id >= start && frame.frame_id < start + this.batchCount) {
-                if (tempBatch.length <= 15) {
-                    tempBatch.push(frame)
-                } else {
-                    result.push(tempBatch)
-                    tempBatch = []
-                    start = frame.frame_id
-                }
+    shuffleAndPlayFrames = () => {
+        const shuffledFrames = this.getShuffledBatches()
+        this.frames = [].concat.apply([],  shuffledFrames)
+        this.updateSeekbarPosition(0)
+    }
+
+    getFrames = () => {
+        const framesWithAnnotation = []
+        const textNodes = Object.keys(this.textNodes)
+        const temp = {}
+        this.frames.forEach(i => {
+            if(i.elements['text']) {
+                framesWithAnnotation.push(i)
             }
         })
+    
+        framesWithAnnotation.forEach(i => {
+            textNodes.forEach(j => {
+                if (i.elements.text.includes(j)) {
+                    if (temp[j]) {
+                        temp[j].push(i.frame_id)
+                    } else {
+                        temp[j] = [i.frame_id]
+                    }
+                }
+            })
+        })
+        return temp
     }
+
+    getShuffledBatches = () => {
+        const result = []
+        let temp = []
+        const batchCount = 15
+        const textWithFrame = this.getFrames()
+        let idx = 0
+        while(idx < this.frames.length) {
+            // Handeling 0'th element
+            if (this.frames[idx].frame_id === 0) {
+                temp.push(this.frames[idx])
+            } else if (this.frames[idx].frame_id % batchCount !== 0 && !this.frames[idx].elements['text']) {
+                temp.push(this.frames[idx])
+            } else if (this.frames[idx].elements['text']) {
+                result.push(temp)
+                temp = []
+                this.frames[idx].elements['text'].forEach(k => {
+                    if (textWithFrame[k]) {
+                        textWithFrame[k].forEach(i => {
+                            temp.push(this.frames[i])
+                            idx +=1
+                        })
+                        result.push(temp)
+                        temp = [this.frames[idx]]
+                    }
+                })
+            } else if (this.frames[idx].frame_id % batchCount === 0 && !this.frames[idx].elements['text']) {
+                result.push(temp)
+                temp = [this.frames[idx]]
+            }
+            idx += 1
+        }
+        result.push(temp)
+        temp = []
+
+        const shuffledFrames = shuffle(result)
+        return shuffledFrames
+    }
+
 
     createBatches = (batchValue: number) => {
         this.batches = chunk(this.frames, batchValue)
     }
+}
 
-    
-
+function shuffle(arr) {
+    var len = arr.length;
+    var d = len;
+    var array = [];
+    var k, i;
+    for (i = 0; i < d; i++) {
+        k = Math.floor(Math.random() * len);
+        array.push(arr[k]);
+        arr.splice(k, 1);
+        len = arr.length;
+    }
+    for (i = 0; i < d; i++) {
+        arr[i] = array[i];
+    }
+    return arr;
 }
 
 function chunk(array: any, size: number) {

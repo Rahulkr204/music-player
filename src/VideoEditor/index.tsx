@@ -11,7 +11,7 @@ interface Props {
 interface State {
 }
 
-const imgArr = Array(11272).fill("/frames/").map((i, index) => {
+const imgArr = Array(1000).fill("/frames/").map((i, index) => {
     const b = '00000000' + (index + 1)
     return i + `s_${b.substring(b.length-8, b.length)}.jpg`
 })

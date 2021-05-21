@@ -61,19 +61,10 @@ export default class LeftPanel extends Component<Props, State> {
 
     schedule = () => {
         const canvasContainer = this.props.canvasContainer
-        canvasContainer.shuffleFrames()
-        console.log({
-            frames: canvasContainer.frames,
-            textNodes: canvasContainer.textNodes
-        })
+        canvasContainer.shuffleAndPlayFrames()
+
         
     }
-
-    componentDidMount() {
-        // const canvasContainer = this.props.canvasContainer
-        // this.canvasContainer.createBatches(this.state.batchValue)
-    }
-    
 
     render() {
         const canvasContainer = this.props.canvasContainer

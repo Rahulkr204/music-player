@@ -53,33 +53,5 @@ export default class Text extends Node {
     getLabel = (): string => {
         return this.data.label
     }
-
-    // addText(textValue: string, duration: string) {
-    //     var textNode = new Konva.Text({
-    //         text: textValue,
-    //         x: 350,
-    //         y: 120,
-    //         fontSize: 20,
-    //         strokeWidth: 1,
-    //         fill: "white",
-    //         stroke: "white",
-    //         draggable: true
-    //     });
-    //     // Adding transformation to text
-    //     var tr = new Konva.Transformer();
-    //     this.canvasContainer.canvasWorkspace.textLayer.add(tr);
-    //     tr.nodes([textNode]);
-    
-    //     this.canvasContainer.canvasWorkspace.textLayer.add(textNode);
-        
-    //     debugger
-    //     this.canvasContainer?.addNodeToFrame({
-    //         nodeConfig: {...textNode.getAttrs()},
-    //         toolType: this.toolType,
-    //         duration
-    //     })
-
-    //     this.canvasContainer.canvasWorkspace.textLayer.draw();
-    // }
 }
 
