@@ -3,6 +3,8 @@ import CanvasContainer from '../../common/CanvasContainer'
 import './Seekbar.scss'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { FaPause, FaPlay } from 'react-icons/fa';
+import Button from '../../ui/Button';
 
 interface Props {
     imageDetails: any
@@ -11,13 +13,20 @@ interface Props {
 
 interface State {
     seekbarVal: number
+    isPlaying: boolean
 }
 
 export default class Seekbar extends Component<Props, State> {
     state = {
-        seekbarVal: 0
+        seekbarVal: 0,
+        isPlaying: false
     }
     
+    toggleVideoPlay = () => {
+        this.setState({
+            isPlaying: !this.state.isPlaying
+        })
+    }
 
     updateSeekbar = (val: number) => {
         const canvasContainer = this.props.canvasContainer
@@ -32,6 +41,7 @@ export default class Seekbar extends Component<Props, State> {
         } else {
             canvasContainer?.playVideo(this.updateSeek)
         }
+        this.toggleVideoPlay()
     }
 
     updateSeek = (pos) => {
@@ -60,7 +70,7 @@ export default class Seekbar extends Component<Props, State> {
             <div className="seekbarContainer">
                 <div className="videoSeekbar">
                     <div className="playBtn" onClick={() => this.toggleVideo()}>
-                        Play
+                        {this.state.isPlaying ? <FaPause color="#fff" size="24px"/> : <FaPlay color="#fff" size="24px"/>}
                     </div>
                     <div className="seekbarInput">
                         <Slider 
