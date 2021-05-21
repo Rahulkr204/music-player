@@ -168,6 +168,7 @@ export default class CanvasContainer {
                 }
             })
         })
+        console.log(temp, "temp")
         return temp
     }
 
@@ -206,6 +207,7 @@ export default class CanvasContainer {
         temp = []
 
         const shuffledFrames = shuffle(result)
+        // return result
         return shuffledFrames
     }
 
