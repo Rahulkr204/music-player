@@ -4,6 +4,7 @@ import './Seekbar.scss'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { FaPause, FaPlay } from 'react-icons/fa';
+import Button from '../../ui/Button';
 
 interface Props {
     imageDetails: any
@@ -65,6 +66,7 @@ export default class Seekbar extends Component<Props, State> {
 
     render() {
         const canvasContainer = this.props.canvasContainer
+        const seekbarPosition = this.props.canvasContainer?.getSeekbarPosition()
         return (
             <div className="seekbarContainer">
                 <div className="videoSeekbar">
@@ -89,11 +91,11 @@ export default class Seekbar extends Component<Props, State> {
                         />
                     </div>
                 </div>
-                <div className="seekbarTime">
+                {/* <div className="seekbarTime">
                     <div className="startTime">{displayTime(this.state.seekbarVal / canvasContainer?.fps)}</div>
                     <div className="endTime">{displayTime(canvasContainer?.videoTime)}</div>
-                </div>
-            </div>
+                </div> */}
+            </div>   
         )
     }
 }
@@ -107,3 +109,4 @@ function displayTime (seconds) {
   
     return [hours, minutes, seconds % 60].map(format).join(':')
 }
+

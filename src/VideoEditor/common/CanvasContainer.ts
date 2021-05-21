@@ -12,9 +12,9 @@ export default class CanvasContainer {
     canvasWorkspace: CanvasWorkspace
     initFrameURL: string
     imageArr: string[]
-    fps: number = 60
+    fps: number = 10
     videoPlayInterval: any
-    videoTime: any 
+    videoTime: number 
     isVideoPlaying: boolean = false
     seekbarPosition: number
     frames: Frames[]
@@ -24,7 +24,7 @@ export default class CanvasContainer {
 
     constructor(imageArr: any) {
         this.imageArr = imageArr
-        this.videoTime = this.imageArr.length / this.fps
+        this.videoTime = (this.imageArr.length / this.fps) * 1000
         this.initFrameURL = imageArr[0]
         this.canvasWorkspace = new CanvasWorkspace(imageArr[0])
         this.seekbarPosition = 0
@@ -38,7 +38,6 @@ export default class CanvasContainer {
         })
         this.batchCount = 15
         this.batches = chunk(Object.assign([], this.frames), this.batchCount)
-        console.log(this.batches)
     }
 
     setBatchCount = (batchCount: number) => {
