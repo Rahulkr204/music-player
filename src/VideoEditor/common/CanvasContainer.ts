@@ -12,7 +12,7 @@ export default class CanvasContainer {
     canvasWorkspace: CanvasWorkspace
     initFrameURL: string
     imageArr: string[]
-    fps: number = 10
+    fps: number = 60
     videoPlayInterval: any
     videoTime: any 
     isVideoPlaying: boolean = false
@@ -40,8 +40,6 @@ export default class CanvasContainer {
         this.batches = chunk(Object.assign([], this.frames), this.batchCount)
         console.log(this.batches)
     }
-
-
 
     setBatchCount = (batchCount: number) => {
         this.batchCount = batchCount
